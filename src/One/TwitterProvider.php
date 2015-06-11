@@ -15,11 +15,14 @@ class TwitterProvider extends AbstractProvider
 
         $instance = (new User)->setRaw(array_merge($user->extra, $user->urls))
                 ->setToken($token->getIdentifier(), $token->getSecret());
-        return $user;
-        // return $instance->map([
-        //     'id' => $user->uid, 'nickname' => $user->nickname,
-        //     'name' => $user->name, 'email' => $user->email, 'avatar' => $user->imageUrl,
-        // ]);
+
+        return $instance->map([
+          'id' => $user->uid,
+          'nickname' => $user->nickname,
+          'name' => $user->name,
+          'email' => $user->email,
+          'avatar' => str_replace('_normal', '', $user->imageUrl),
+        ]);
     }
 
 }
